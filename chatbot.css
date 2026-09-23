@@ -112,14 +112,18 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--rk-blue), var(--rk-green));
+  background: #0A0C10;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
-  color: #0A0C10;
   flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.rk-chat-header .rk-avatar svg {
+  width: 26px;
+  height: 26px;
+  display: block;
 }
 
 .rk-chat-header .rk-title {

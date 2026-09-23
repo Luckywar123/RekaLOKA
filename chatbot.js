@@ -86,7 +86,16 @@
 
       <div id="rk-chat-panel" role="dialog" aria-label="Chat FAQ Rekaloka">
         <div class="rk-chat-header">
-          <div class="rk-avatar">RK</div>
+          <div class="rk-avatar" title="Rekaloka">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="48" height="48" fill="#0A0C10"/>
+              <path d="M8 10h32v6H8V10z" fill="#2E9E6E"/>
+              <path d="M8 22h32v5H8v-5z" fill="#2E9E6E"/>
+              <path d="M8 10v28h7V18c0-2.2 1.3-4 4-4h13v-4H8z" fill="#1a3a4a"/>
+              <path d="M22 18c8 0 14 6 14 14v6h-6v-6c0-4.4-3.6-8-8-8h-4v-6h4z" fill="#1a3a4a"/>
+              <path d="M22 18c8 0 14 6 14 14" stroke="#2E9E6E" stroke-width="5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div class="rk-title">
             <h3>Rekaloka Assistant</h3>
             <p>FAQ • Online</p>
@@ -199,17 +208,19 @@
       'bot'
     );
 
+    function setOpen(isOpen) {
+      panel.classList.toggle('open', isOpen);
+      toggle.classList.toggle('open', isOpen);
+      document.body.classList.toggle('rk-chat-open', isOpen);
+      if (isOpen) input.focus();
+    }
+
     toggle.addEventListener('click', function () {
-      panel.classList.toggle('open');
-      toggle.classList.toggle('open');
-      if (panel.classList.contains('open')) {
-        input.focus();
-      }
+      setOpen(!panel.classList.contains('open'));
     });
 
     closeBtn.addEventListener('click', function () {
-      panel.classList.remove('open');
-      toggle.classList.remove('open');
+      setOpen(false);
     });
 
     input.addEventListener('input', function () {
