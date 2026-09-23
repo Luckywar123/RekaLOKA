@@ -21,6 +21,51 @@
     greeted: false
   };
 
+  // Variasi balasan biar tidak monoton
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  var SPONTANEOUS = {
+    greeting: [
+      'Halo! 👋 Saya asisten virtual Rekaloka.\n\nSaya bisa bantu seputar layanan, produk, proses kerja, kemitraan, hingga cara menghubungi kami.\n\nMau tanya apa dulu?',
+      'Hai! Selamat datang di Rekaloka. 😊\n\nAda yang ingin ditanyakan tentang layanan atau cara kerja sama dengan kami?',
+      'Halo! Siap bantu.\n\nBisa tanya layanan, produk, proses proyek, harga kasar, atau cara ajukan kemitraan.',
+      'Selamat datang! Saya FAQ assistant Rekaloka.\n\nLangsung saja — mau tahu layanan, portfolio, atau cara hubungi tim?'
+    ],
+    thanks: [
+      'Sama-sama! 🙌 Kalau masih ada pertanyaan tentang Rekaloka, silakan saja.',
+      'Dengan senang hati! Ada lagi yang mau ditanya?',
+      'Sip, sama-sama. 😊 Butuh info layanan atau kemitraan juga bisa.',
+      'Sama-sama ya. Kalau nanti ada ide project, form Kemitraan siap diisi kapan saja.'
+    ],
+    goodbye: [
+      'Baik, sampai jumpa! Kalau butuh info lagi seputar Rekaloka, tinggal buka chat ini lagi ya. 👋',
+      'Oke, sampai jumpa! Semoga harimu lancar. 👋',
+      'Siap, sampai ketemu lagi. Tim Rekaloka siap dibantu lewat form Kemitraan kapan saja.'
+    ],
+    off_topic: [
+      'Hmm, saya belum punya jawaban pasti untuk itu di dataset resmi.\n\nCoba tanya seputar layanan, produk, proses kerja, atau kemitraan — atau isi form Kemitraan di website agar tim kami bantu langsung.',
+      'Pertanyaan itu di luar data resmi yang saya punya.\n\nBisa coba topik: layanan, produk, proses, atau kemitraan. Atau hubungi tim lewat form di website.',
+      'Maaf, saya belum bisa jawab itu dengan yakin.\n\nKalau tentang Rekaloka (layanan / kerjasama / kontak), silakan tanya lagi — atau isi form Kemitraan ya.'
+    ],
+    prefix: [
+      '',
+      'Baik — ',
+      'Siap. ',
+      'Oke, begini: ',
+      'Ringkasnya: '
+    ]
+  };
+
+  function withPrefix(answer) {
+    var pre = pick(SPONTANEOUS.prefix);
+    if (!pre) return answer;
+    // Jangan prefix kalau jawaban sudah panjang banget
+    if (answer.length > 280) return answer;
+    return pre + answer.charAt(0).toLowerCase() + answer.slice(1);
+  }
+
   // ---------- Normalisasi ----------
   function normalize(str) {
     return (str || '')
@@ -235,7 +280,7 @@
       var hit = findBestFAQ(userText, 'greeting');
       if (hit) return { text: hit.item.a, intent: intent, followups: FOLLOWUPS.greeting };
       return {
-        text: 'Halo! 👋 Saya asisten virtual Rekaloka.\n\nSaya bisa bantu seputar layanan, produk, proses kerja, kemitraan, hingga cara menghubungi kami.\n\nMau tanya apa dulu?',
+        text: pick(SPONTANEOUS.greeting),
         intent: intent,
         followups: FOLLOWUPS.greeting
       };
@@ -244,7 +289,7 @@
     if (intent === 'thanks') {
       var th = findBestFAQ(userText, 'thanks');
       return {
-        text: th ? th.item.a : 'Sama-sama! 🙌 Kalau masih ada pertanyaan tentang Rekaloka, silakan saja.',
+        text: th ? th.item.a : pick(SPONTANEOUS.thanks),
         intent: intent,
         followups: FOLLOWUPS.thanks
       };
@@ -252,7 +297,7 @@
 
     if (intent === 'goodbye') {
       return {
-        text: 'Baik, sampai jumpa! Kalau butuh info lagi seputar Rekaloka, tinggal buka chat ini lagi ya. 👋',
+        text: pick(SPONTANEOUS.goodbye),
         intent: intent,
         followups: []
       };
@@ -280,7 +325,7 @@
     if (result) {
       state.lastTopic = (result.item.tags && result.item.tags[0]) || intent;
       return {
-        text: result.item.a,
+        text: withPrefix(result.item.a),
         intent: intent,
         followups: FOLLOWUPS[intent] || FOLLOWUPS.faq
       };
@@ -288,7 +333,7 @@
 
     // Tidak ketemu
     return {
-      text: 'Hmm, saya belum punya jawaban pasti untuk itu di dataset resmi.\n\nCoba tanya seputar layanan, produk, proses kerja, atau kemitraan — atau isi form Kemitraan di website agar tim kami bantu langsung.',
+      text: pick(SPONTANEOUS.off_topic),
       intent: 'off_topic',
       followups: ['Layanan apa saja?', 'Cara ajukan kemitraan', 'Apa itu Rekaloka?']
     };

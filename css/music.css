@@ -1,0 +1,61 @@
+/* Lofi music control — pojok kiri bawah, tidak bentrok chatbot */
+#rk-music {
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 19, 26, 0.92);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 6px 10px 6px 6px;
+  box-shadow: 0 8px 24px rgba(16,19,26,0.25);
+  backdrop-filter: blur(8px);
+}
+
+#rk-music-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #3E7CB1, #2E9E6E);
+  color: #0A0C10;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+#rk-music-btn.playing {
+  background: #2E9E6E;
+}
+
+#rk-music-btn svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.rk-music-label {
+  letter-spacing: 0.02em;
+}
+
+#rk-music-vol {
+  width: 72px;
+  height: 4px;
+  cursor: pointer;
+  accent-color: #2E9E6E;
+}
+
+@media (max-width: 480px) {
+  #rk-music {
+    left: 12px;
+    bottom: 90px; /* di atas area chatbot toggle */
+    padding: 5px 8px 5px 5px;
+  }
+  #rk-music-vol { width: 56px; }
+  .rk-music-label { display: none; }
+}

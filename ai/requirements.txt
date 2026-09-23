@@ -1,0 +1,10 @@
+# Opsional — untuk belajar dataset secara lokal / server
+# Python 3.10+
+fastapi>=0.110.0
+uvicorn>=0.27.0
+pydantic>=2.0
+numpy>=1.24.0
+# Semantic embeddings (pilih salah satu):
+sentence-transformers>=2.6.0
+# atau lebih ringan: scikit-learn saja (tanpa neural)
+scikit-learn>=1.4.0

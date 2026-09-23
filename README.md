@@ -71,3 +71,18 @@ Buka `faq-data.js` → tambah/edit objek `{ q: [...], a: "...", tags: [...] }`.
 - **State singkat** — track intent/topic terakhir
 
 Masih 100% gratis, tanpa API key. Dataset tetap di `faq-data.js`.
+
+
+## Musik lofi
+
+- Player di pojok kiri bawah (`js/music.js` + `css/music.css`)
+- File: `assets/lofi.mp3` (ambient royalty-free dari Pixabay)
+- Klik **Lofi** untuk play/pause; geser slider volume
+- Browser memblokir autoplay bersuara — user harus klik sekali
+
+Ganti lagu: taruh MP3 baru di `assets/lofi.mp3`.
+
+## Python AI (opsional)
+
+Lihat folder `ai/` — CLI + API lokal untuk semantic search dataset.
+Website **tidak wajib** Python untuk jalan.
