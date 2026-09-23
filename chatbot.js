@@ -87,13 +87,10 @@
       <div id="rk-chat-panel" role="dialog" aria-label="Chat FAQ Rekaloka">
         <div class="rk-chat-header">
           <div class="rk-avatar" title="Rekaloka">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect width="48" height="48" fill="#0A0C10"/>
-              <path d="M8 10h32v6H8V10z" fill="#2E9E6E"/>
-              <path d="M8 22h32v5H8v-5z" fill="#2E9E6E"/>
-              <path d="M8 10v28h7V18c0-2.2 1.3-4 4-4h13v-4H8z" fill="#1a3a4a"/>
-              <path d="M22 18c8 0 14 6 14 14v6h-6v-6c0-4.4-3.6-8-8-8h-4v-6h4z" fill="#1a3a4a"/>
-              <path d="M22 18c8 0 14 6 14 14" stroke="#2E9E6E" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="20" cy="20" r="20" fill="#10131A"/>
+              <circle cx="20" cy="20" r="18.5" fill="none" stroke="#2E9E6E" stroke-width="1.5"/>
+              <path fill="#2E9E6E" d="M13 11h9.2c3.6 0 5.9 1.9 5.9 4.7 0 2.1-1.2 3.6-3.1 4.3l3.8 6.5h-3.6l-3.4-5.9h-4.3V26.5H13V11zm3.5 3v5.1h5.2c1.7 0 2.7-.9 2.7-2.55S23.4 14 21.7 14H16.5z"/>
             </svg>
           </div>
           <div class="rk-title">
