@@ -593,6 +593,49 @@
   .video-block{border:1px solid var(--line-dark);background:#000;margin-bottom:8px;}
   .video-block video{width:100%;display:block;max-height:520px;background:#000;}
   .video-caption{font-size:13px;color:var(--on-dark-muted);margin-top:12px;}
+
+  /* ---------- Forms: Kemitraan & Ulasan ---------- */
+  .biz-form{
+    background:var(--paper);border:1px solid var(--line);
+    padding:32px;max-width:640px;margin-top:36px;
+  }
+  #kemitraan .biz-form{background:var(--mist);}
+  .biz-form h3{font-family:var(--font-display);font-size:20px;margin-bottom:6px;color:var(--text);}
+  .biz-form>p{font-size:14px;color:var(--text-muted);margin-bottom:22px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  @media (max-width:560px){.field-row{grid-template-columns:1fr;}}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;}
+  .field input,.field textarea{
+    width:100%;font-family:var(--font-body);font-size:15px;color:var(--text);
+    background:var(--paper);border:1px solid var(--line);border-radius:2px;
+    padding:11px 13px;transition:border-color .2s ease;
+  }
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--blue);}
+  .field textarea{resize:vertical;min-height:96px;}
+  .field{margin-bottom:16px;}
+  .biz-form .btn-primary{border:none;cursor:pointer;font-family:var(--font-body);}
+  .biz-form .btn-primary:disabled{opacity:.6;cursor:not-allowed;}
+  .form-msg{margin-top:14px;font-size:14px;display:none;}
+
+  /* ---------- Star rating ---------- */
+  .star-rating{display:inline-flex;gap:4px;font-size:30px;line-height:1;cursor:pointer;user-select:none;}
+  .star-rating span{color:var(--line);transition:color .15s ease;}
+  .star-rating span.active{color:var(--amber);}
+  .avg-rating{display:flex;align-items:center;gap:12px;margin-bottom:26px;flex-wrap:wrap;}
+  .avg-rating .stars-display{font-size:22px;letter-spacing:2px;}
+  .avg-rating .stars-display span{color:var(--line);}
+  .avg-rating .stars-display span.active{color:var(--amber);}
+  .avg-rating .avg-num{font-family:var(--font-display);font-size:26px;color:var(--text);}
+  .avg-rating .avg-count{font-size:13px;color:var(--text-muted);}
+  #ulasan{background:var(--ink);padding-top:96px;}
+  #ulasan .section-head h2{color:var(--on-dark);}
+  #ulasan .section-head p{color:var(--on-dark-muted);}
+  #ulasan .biz-form{background:var(--charcoal);border-color:var(--line-dark);}
+  #ulasan .biz-form h3{color:var(--on-dark);}
+  #ulasan .biz-form>p{color:var(--on-dark-muted);}
+  #ulasan .field label{color:var(--on-dark);}
+  #ulasan .field input{background:var(--ink);border-color:var(--line-dark);color:var(--on-dark);}
+  #ulasan .avg-num{color:var(--on-dark);}
 </style>
 </head>
 <body>
@@ -935,6 +978,31 @@
           <div class="case-duration">Durasi pengerjaan: Januari – Mei 2024</div>
         </div>
       </div>
+
+      <form class="biz-form" id="formKemitraan" novalidate>
+        <h3>Ajukan Kemitraan / Kerjasama Proyek</h3>
+        <p>Isi form berikut, tim Rekaloka akan menghubungi Anda untuk membahas detail proyek.</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="km-nama">Nama Lengkap</label>
+            <input type="text" id="km-nama" name="nama" required>
+          </div>
+          <div class="field">
+            <label for="km-email">Email</label>
+            <input type="email" id="km-email" name="email" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="km-hp">Nomor HP / WhatsApp</label>
+          <input type="tel" id="km-hp" name="no_hp" required>
+        </div>
+        <div class="field">
+          <label for="km-ket">Keterangan Project</label>
+          <textarea id="km-ket" name="keterangan" placeholder="Ceritakan kebutuhan atau ide proyek Anda..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Kirim Pengajuan</button>
+        <div class="form-msg" id="km-msg"></div>
+      </form>
     </div>
   </section>
 
@@ -1206,10 +1274,62 @@
             <li><a href="#kemitraan">Kemitraan</a></li>
             <li><a href="#sorotan">Sorotan</a></li>
             <li><a href="#proses">Proses</a></li>
+            <li><a href="#ulasan">Ulasan</a></li>
           </ul>
           <div class="foot-copy">rekaloka.id@gmail.com &nbsp;·&nbsp; 0811-1144-04<br>© 2025 Rekaloka Infra Digital. Semua hak dilindungi.</div>
         </div>
       </footer>
+    </div>
+  </section>
+
+  <!-- ULASAN / FEEDBACK -->
+  <section id="ulasan">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="bar"></div>
+        <h2>Ulasan Pengguna</h2>
+        <p>Beri penilaian dan masukan Anda tentang layanan Rekaloka.</p>
+      </div>
+
+      <div class="avg-rating">
+        <span class="avg-num" id="avgRatingValue">0.0</span>
+        <span class="stars-display" id="avgStarsDisplay">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </span>
+        <span class="avg-count">(<span id="avgRatingCount">0</span> ulasan)</span>
+      </div>
+
+      <form class="biz-form" id="formUlasan" novalidate>
+        <h3>Tulis Ulasan</h3>
+        <p>Nama, email, dan nomor HP Anda hanya digunakan untuk verifikasi internal.</p>
+        <div class="field">
+          <label>Rating</label>
+          <div class="star-rating" id="starRating">
+            <span data-star="1">★</span>
+            <span data-star="2">★</span>
+            <span data-star="3">★</span>
+            <span data-star="4">★</span>
+            <span data-star="5">★</span>
+          </div>
+          <input type="hidden" id="ratingInput" name="rating" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="ul-nama">Nama Lengkap</label>
+            <input type="text" id="ul-nama" name="nama" required>
+          </div>
+          <div class="field">
+            <label for="ul-email">Email</label>
+            <input type="email" id="ul-email" name="email" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ul-hp">Nomor HP / WhatsApp</label>
+          <input type="tel" id="ul-hp" name="no_hp" required>
+        </div>
+        <button type="submit" class="btn-primary">Kirim Ulasan</button>
+        <div class="form-msg" id="ul-msg"></div>
+      </form>
     </div>
   </section>
 
@@ -1258,6 +1378,115 @@
   backTop.addEventListener('click', function(){
     window.scrollTo({top:0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
   });
+</script>
+
+<!-- ================= SUPABASE ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // GANTI dengan URL & anon key project Supabase kamu
+  // (Supabase Dashboard > Project Settings > API)
+  var SUPABASE_URL = 'https://GANTI-DENGAN-PROJECT-ID.supabase.co';
+  var SUPABASE_ANON_KEY = 'GANTI-DENGAN-ANON-PUBLIC-KEY';
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  function showFormMsg(el, text, ok){
+    el.textContent = text;
+    el.style.color = ok ? 'var(--green)' : '#D9534F';
+    el.style.display = 'block';
+  }
+
+  // ---- Form: Kemitraan ----
+  var formKemitraan = document.getElementById('formKemitraan');
+  formKemitraan.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = formKemitraan.querySelector('button[type="submit"]');
+    var msg = document.getElementById('km-msg');
+    var payload = {
+      nama: formKemitraan.nama.value.trim(),
+      email: formKemitraan.email.value.trim(),
+      no_hp: formKemitraan.no_hp.value.trim(),
+      keterangan: formKemitraan.keterangan.value.trim()
+    };
+    btn.disabled = true; btn.textContent = 'Mengirim...';
+    sb.from('kemitraan').insert([payload]).then(function(res){
+      btn.disabled = false; btn.textContent = 'Kirim Pengajuan';
+      if (res.error) {
+        showFormMsg(msg, 'Gagal mengirim: ' + res.error.message, false);
+      } else {
+        showFormMsg(msg, 'Terima kasih! Pengajuan kemitraan Anda telah kami terima.', true);
+        formKemitraan.reset();
+      }
+    });
+  });
+
+  // ---- Star rating (form ulasan) ----
+  var starWrap = document.getElementById('starRating');
+  var ratingInput = document.getElementById('ratingInput');
+  var stars = starWrap.querySelectorAll('span');
+  function paintStars(container, val){
+    container.querySelectorAll('span').forEach(function(s){
+      var n = Number(s.getAttribute('data-star')) || (Array.prototype.indexOf.call(container.querySelectorAll('span'), s) + 1);
+      s.classList.toggle('active', n <= val);
+    });
+  }
+  stars.forEach(function(s){
+    s.addEventListener('click', function(){
+      var val = Number(s.getAttribute('data-star'));
+      ratingInput.value = val;
+      paintStars(starWrap, val);
+    });
+    s.addEventListener('mouseenter', function(){
+      paintStars(starWrap, Number(s.getAttribute('data-star')));
+    });
+  });
+  starWrap.addEventListener('mouseleave', function(){
+    paintStars(starWrap, Number(ratingInput.value || 0));
+  });
+
+  // ---- Form: Ulasan ----
+  var formUlasan = document.getElementById('formUlasan');
+  formUlasan.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = formUlasan.querySelector('button[type="submit"]');
+    var msg = document.getElementById('ul-msg');
+    if (!ratingInput.value) {
+      showFormMsg(msg, 'Silakan pilih rating bintang terlebih dahulu.', false);
+      return;
+    }
+    var payload = {
+      nama: formUlasan.nama.value.trim(),
+      email: formUlasan.email.value.trim(),
+      no_hp: formUlasan.no_hp.value.trim(),
+      rating: Number(ratingInput.value)
+    };
+    btn.disabled = true; btn.textContent = 'Mengirim...';
+    sb.from('ulasan').insert([payload]).then(function(res){
+      btn.disabled = false; btn.textContent = 'Kirim Ulasan';
+      if (res.error) {
+        showFormMsg(msg, 'Gagal mengirim: ' + res.error.message, false);
+      } else {
+        showFormMsg(msg, 'Terima kasih atas ulasan Anda!', true);
+        formUlasan.reset();
+        ratingInput.value = '';
+        paintStars(starWrap, 0);
+        loadRatingSummary();
+      }
+    });
+  });
+
+  // ---- Rata-rata rating ----
+  function loadRatingSummary(){
+    sb.from('ulasan').select('rating').then(function(res){
+      if (res.error || !res.data) return;
+      var data = res.data;
+      var count = data.length;
+      var avg = count ? (data.reduce(function(a,b){ return a + b.rating; }, 0) / count) : 0;
+      document.getElementById('avgRatingValue').textContent = avg.toFixed(1);
+      document.getElementById('avgRatingCount').textContent = count;
+      paintStars(document.getElementById('avgStarsDisplay'), Math.round(avg));
+    });
+  }
+  loadRatingSummary();
 </script>
 
 </body>
