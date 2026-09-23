@@ -60,3 +60,14 @@ Nanti bisa diextract ke folder `assets/` supaya file lebih ringan. Untuk sekaran
 ## Edit FAQ
 
 Buka `faq-data.js` → tambah/edit objek `{ q: [...], a: "...", tags: [...] }`.
+
+
+## Chatbot hybrid (update)
+
+`chatbot.js` sekarang memakai:
+- **Intent detection** — sapaan, kemitraan, harga, kontak, proses, produk, layanan, dll.
+- **Smart FAQ match** — skor token + phrase + tag + boost sesuai intent
+- **Follow-up dinamis** — tombol quick-reply berubah sesuai arah percakapan
+- **State singkat** — track intent/topic terakhir
+
+Masih 100% gratis, tanpa API key. Dataset tetap di `faq-data.js`.
