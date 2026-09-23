@@ -1,5 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <circle cx="16" cy="16" r="16" fill="#10131A"/>
-  <circle cx="16" cy="16" r="14.5" fill="none" stroke="#2E9E6E" stroke-width="1.5"/>
-  <path fill="#2E9E6E" d="M10 8.5h7.2c2.85 0 4.65 1.5 4.65 3.75 0 1.65-.95 2.85-2.45 3.4l3 5.15h-2.85l-2.7-4.7h-3.4v4.7H10V8.5zm2.75 2.35v4.05h4.1c1.35 0 2.15-.7 2.15-2.05s-.8-2-2.15-2H12.75z"/>
+  <rect width="32" height="32" fill="#10131A"/>
+  <!-- vertical teal bar left -->
+  <rect x="3" y="3" width="7" height="26" fill="#2E9E6E"/>
+  <!-- top horizontal teal -->
+  <rect x="3" y="3" width="26" height="5" fill="#2E9E6E"/>
+  <!-- second horizontal dark -->
+  <rect x="10" y="11" width="19" height="4" fill="#1B3A4A"/>
+  <!-- third horizontal teal -->
+  <rect x="10" y="17" width="19" height="4" fill="#2E9E6E"/>
+  <!-- arc bottom-right -->
+  <path d="M12 29c8.5 0 15.5-5 17-12" fill="none" stroke="#1B3A4A" stroke-width="4" stroke-linecap="round"/>
+  <path d="M14 29c7 0 13-4.5 14.5-10" fill="none" stroke="#2E9E6E" stroke-width="2.5" stroke-linecap="round"/>
 </svg>
