@@ -162,7 +162,7 @@
       acceptNode: function(n){
         var p = n.parentNode;
         if (!p || /^(SCRIPT|STYLE|NOSCRIPT)$/.test(p.nodeName)) return NodeFilter.FILTER_REJECT;
-        if (p.closest && p.closest('#rk-chat, .chatbot, [data-no-i18n]')) return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest('#rk-chat-root, [data-no-i18n]')) return NodeFilter.FILTER_REJECT;
         return n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
       }
     });
@@ -173,6 +173,7 @@
       else if (t) n.nodeValue = src.replace(src.trim(), t).replace(/\u00a0/g,' ');
     }
     document.querySelectorAll('[placeholder],[aria-label],[title],[alt]').forEach(function(el){
+      if (el.closest('#rk-chat-root')) return;
       var o = attrStore.get(el) || {}; attrStore.set(el, o);
       ATTRS.forEach(function(a){
         if (!el.hasAttribute(a)) return;
@@ -186,6 +187,7 @@
       b.setAttribute('aria-pressed', b.dataset.lang === lang);
     });
     try { localStorage.setItem('rk_lang', lang); } catch(e){}
+    document.dispatchEvent(new CustomEvent('rk:lang', {detail:lang}));
   }
   function set(lang){ if (LANGS.indexOf(lang) > -1) apply(lang); }
 

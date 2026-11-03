@@ -26,6 +26,29 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  // ---------- Bahasa (ID default; EN/DE dari chatbot-lang.js + faq-i18n.js) ----------
+  function lang() { return (window.RK_I18N && RK_I18N.get && RK_I18N.get()) || 'id'; }
+  function CL() { return (window.RK_CHAT_LANG || {})[lang()] || null; }
+  function S() { var l = CL(); return l ? l.spont : SPONTANEOUS; }
+  function F() { var l = CL(); return l ? l.follow : FOLLOWUPS; }
+  function A(item) {
+    var l = lang(), i = FAQ.indexOf(item), t = window.REKALOKA_FAQ_I18N && REKALOKA_FAQ_I18N[l];
+    return (t && t[i]) ? t[i][1] : item.a;
+  }
+  function QS(item) {
+    var l = lang(), i = FAQ.indexOf(item), t = window.REKALOKA_FAQ_I18N && REKALOKA_FAQ_I18N[l];
+    var base = Array.isArray(item.q) ? item.q : [item.q];
+    return (t && t[i]) ? t[i][0].concat(base) : base;
+  }
+  function PATS(name) {
+    var l = CL(), base = INTENT_PATTERNS[name] || [];
+    return (l && l.intents && l.intents[name]) ? l.intents[name].concat(base) : base;
+  }
+  // pola pendek (<=3 huruf) harus cocok sebagai kata utuh, supaya "hi" tidak cocok di "which"
+  function hasPat(n, p) {
+    return p.length <= 3 ? (' ' + n + ' ').indexOf(' ' + p + ' ') !== -1 : n.indexOf(p) !== -1;
+  }
+
   var SPONTANEOUS = {
     greeting: [
       'Halo! 👋 Saya asisten virtual Rekaloka.\n\nSaya bisa bantu seputar layanan, produk, proses kerja, kemitraan, hingga cara menghubungi kami.\n\nMau tanya apa dulu?',
@@ -59,6 +82,7 @@
   };
 
   function withPrefix(answer) {
+    if (lang() !== 'id') return answer;
     var pre = pick(SPONTANEOUS.prefix);
     if (!pre) return answer;
     // Jangan prefix kalau jawaban sudah panjang banget
@@ -77,9 +101,15 @@
       .trim();
   }
 
+  // kata umum EN/DE yang tidak membawa makna topik (supaya "what is the weather" tidak cocok ke FAQ)
+  var STOP = {};
+  ('what is the a an do does you your are to of it in for and or how which who where when can i me my we our us with on at be this that '+
+   'was ist der die das und ein eine einen zu wie sind sie ihr ihre ich mir wir uns mit auf bei wo wer wann kann haben hat von im am es den dem')
+    .split(' ').forEach(function (w) { STOP[w] = 1; });
+
   function tokenize(str) {
     return normalize(str).split(' ').filter(function (t) {
-      return t.length > 1;
+      return t.length > 1 && !STOP[t];
     });
   }
 
@@ -146,11 +176,11 @@
 
     for (var i = 0; i < intentNames.length; i++) {
       var name = intentNames[i];
-      var pats = INTENT_PATTERNS[name];
+      var pats = PATS(name);
       var sc = 0;
       for (var j = 0; j < pats.length; j++) {
         if (n === pats[j]) sc += 50;
-        else if (n.indexOf(pats[j]) !== -1) sc += 20 + pats[j].length;
+        else if (hasPat(n, pats[j])) sc += 20 + pats[j].length;
       }
       if (sc > 0) scores[name] = sc;
     }
@@ -166,9 +196,9 @@
 
     // Sapaan pendek murni
     if (!best && n.split(' ').length <= 3) {
-      var greetWords = INTENT_PATTERNS.greeting;
+      var greetWords = PATS('greeting');
       for (var g = 0; g < greetWords.length; g++) {
-        if (n.indexOf(greetWords[g]) !== -1) return { intent: 'greeting', confidence: 0.7 };
+        if (hasPat(n, greetWords[g])) return { intent: 'greeting', confidence: 0.7 };
       }
     }
 
@@ -179,7 +209,7 @@
   // ---------- Smart FAQ match ----------
   function scoreMatch(userTokens, userPhrase, item) {
     var score = 0;
-    var questions = Array.isArray(item.q) ? item.q : [item.q];
+    var questions = QS(item);
     var tags = item.tags || [];
     var allText = questions.concat(tags).map(normalize).join(' ');
 
@@ -278,26 +308,26 @@
     if (intent === 'greeting') {
       state.greeted = true;
       var hit = findBestFAQ(userText, 'greeting');
-      if (hit) return { text: hit.item.a, intent: intent, followups: FOLLOWUPS.greeting };
+      if (hit) return { text: A(hit.item), intent: intent, followups: F().greeting };
       return {
-        text: pick(SPONTANEOUS.greeting),
+        text: pick(S().greeting),
         intent: intent,
-        followups: FOLLOWUPS.greeting
+        followups: F().greeting
       };
     }
 
     if (intent === 'thanks') {
       var th = findBestFAQ(userText, 'thanks');
       return {
-        text: th ? th.item.a : pick(SPONTANEOUS.thanks),
+        text: th ? A(th.item) : pick(S().thanks),
         intent: intent,
-        followups: FOLLOWUPS.thanks
+        followups: F().thanks
       };
     }
 
     if (intent === 'goodbye') {
       return {
-        text: pick(SPONTANEOUS.goodbye),
+        text: pick(S().goodbye),
         intent: intent,
         followups: []
       };
@@ -306,17 +336,17 @@
     if (intent === 'help') {
       var hp = findBestFAQ(userText, 'help');
       return {
-        text: hp ? hp.item.a : 'Saya bisa bantu jawab tentang:\n• Apa itu Rekaloka\n• Layanan & produk\n• Proses kerja\n• Kemitraan\n• Harga & kontak\n\nKetik pertanyaanmu atau pilih tombol di bawah.',
+        text: hp ? A(hp.item) : (CL() ? CL().help : 'Saya bisa bantu jawab tentang:\n• Apa itu Rekaloka\n• Layanan & produk\n• Proses kerja\n• Kemitraan\n• Harga & kontak\n\nKetik pertanyaanmu atau pilih tombol di bawah.'),
         intent: intent,
-        followups: FOLLOWUPS.help
+        followups: F().help
       };
     }
 
     if (intent === 'unclear') {
       return {
-        text: 'Tidak apa-apa! Coba tanya dengan kata lain, atau pilih salah satu topik di bawah supaya saya bisa bantu lebih tepat.',
+        text: CL() ? CL().unclear : 'Tidak apa-apa! Coba tanya dengan kata lain, atau pilih salah satu topik di bawah supaya saya bisa bantu lebih tepat.',
         intent: intent,
-        followups: FOLLOWUPS.unclear
+        followups: F().unclear
       };
     }
 
@@ -325,17 +355,17 @@
     if (result) {
       state.lastTopic = (result.item.tags && result.item.tags[0]) || intent;
       return {
-        text: withPrefix(result.item.a),
+        text: withPrefix(A(result.item)),
         intent: intent,
-        followups: FOLLOWUPS[intent] || FOLLOWUPS.faq
+        followups: F()[intent] || F().faq
       };
     }
 
     // Tidak ketemu
     return {
-      text: pick(SPONTANEOUS.off_topic),
+      text: pick(S().off_topic),
       intent: 'off_topic',
-      followups: ['Layanan apa saja?', 'Cara ajukan kemitraan', 'Apa itu Rekaloka?']
+      followups: CL() ? CL().follow.off_topic : ['Layanan apa saja?', 'Cara ajukan kemitraan', 'Apa itu Rekaloka?']
     };
   }
 
@@ -379,7 +409,7 @@
   }
 
   function timeNow() {
-    return new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    return new Date().toLocaleTimeString((CL() ? CL().ui.locale : 'id-ID'), { hour: '2-digit', minute: '2-digit' });
   }
 
   function addMessage(container, text, who) {
@@ -450,11 +480,23 @@
     var sendBtn = document.getElementById('rk-send');
     var quick = document.getElementById('rk-quick');
 
-    addMessage(
-      messages,
-      'Halo! Saya asisten virtual Rekaloka.\nTanyakan saja tentang layanan, produk, proses kerja, atau cara mengajukan kemitraan.',
-      'bot'
-    );
+    var ID_UI = { title:'Rekaloka Assistant', status:'FAQ • Online', toggle:'Buka chat FAQ', toggleTip:'Tanya seputar Rekaloka', panel:'Chat FAQ Rekaloka', close:'Tutup', placeholder:'Tulis pertanyaan...', send:'Kirim',
+      welcome:'Halo! Saya asisten virtual Rekaloka.\nTanyakan saja tentang layanan, produk, proses kerja, atau cara mengajukan kemitraan.',
+      quick:[['Apa itu Rekaloka?','Apa itu Rekaloka?'],['Layanan apa saja?','Layanan'],['Cara kerja','Proses kerja'],['Ajukan kemitraan','Kemitraan']] };
+    function applyLang(reset) {
+      var u = CL() ? CL().ui : ID_UI;
+      var root = document.getElementById('rk-chat-root');
+      toggle.setAttribute('aria-label', u.toggle); toggle.setAttribute('title', u.toggleTip);
+      panel.setAttribute('aria-label', u.panel); closeBtn.setAttribute('aria-label', u.close);
+      root.querySelector('.rk-title h3').textContent = u.title; root.querySelector('.rk-title p').textContent = u.status;
+      input.setAttribute('placeholder', u.placeholder); sendBtn.setAttribute('aria-label', u.send);
+      if (reset) { messages.innerHTML = ''; state.turn = 0; state.lastIntent = null; }
+      if (reset || !messages.children.length) addMessage(messages, u.welcome, 'bot');
+      quick.innerHTML = '';
+      u.quick.forEach(function (qq) { var b = document.createElement('button'); b.type = 'button'; b.setAttribute('data-q', qq[0]); b.textContent = qq[1]; quick.appendChild(b); });
+    }
+    applyLang(false);
+    document.addEventListener('rk:lang', function () { applyLang(true); });
 
     function setOpen(isOpen) {
       panel.classList.toggle('open', isOpen);

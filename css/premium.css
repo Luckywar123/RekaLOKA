@@ -5,17 +5,27 @@
   background:radial-gradient(circle,rgba(62,124,177,.16),transparent 65%);transform:translate(-50%,-50%);opacity:0;transition:opacity .4s;mix-blend-mode:screen}
 body.has-glow #rk-glow{opacity:1}
 
-/* navbar glass */
-#navbar{transition:background .3s,backdrop-filter .3s,box-shadow .3s}
-#navbar.scrolled,#navbar.rk-glass{background:rgba(16,19,26,.72)!important;-webkit-backdrop-filter:saturate(160%) blur(14px);backdrop-filter:saturate(160%) blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.08)}
+/* navbar: tetap terang (sesuai desain asli), lebih lega & tidak nabrak */
+#navbar.rk-glass{background:rgba(255,255,255,.92);box-shadow:0 6px 24px -12px rgba(16,19,26,.25)}
+.nav-inner{justify-content:flex-start;gap:40px}
+.nav-links{margin-left:auto;gap:28px;flex-wrap:nowrap}
+.nav-links a{white-space:nowrap;font-size:14px}
+.nav-cta{margin-left:8px;flex-shrink:0}
+@media (max-width:1280px){.nav-inner{gap:24px}.nav-links{gap:18px}.nav-links a{font-size:13.5px}}
 
-/* language switcher */
-.lang-switch{display:inline-flex;gap:2px;padding:3px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.06);margin-left:12px}
-.lang-btn{font:600 11px/1 var(--font-body);letter-spacing:.06em;color:#cfd4db;background:none;border:0;padding:7px 10px;border-radius:999px;cursor:pointer;transition:all .2s}
-.lang-btn:hover{color:#fff}
-.lang-btn.active{background:linear-gradient(135deg,#3E7CB1,#2E9E6E);color:#fff;box-shadow:0 2px 10px rgba(62,124,177,.45)}
-#mobile-menu .lang-switch{margin:18px 0 0;display:flex;justify-content:center}
-@media (max-width:900px){#navbar .lang-switch{margin-left:auto;margin-right:8px}}
+/* language switcher: kontras di navbar terang */
+.lang-switch{display:inline-flex;gap:2px;padding:3px;border:1px solid rgba(16,19,26,.22);border-radius:999px;background:#fff;margin-left:6px;flex-shrink:0;box-shadow:0 2px 8px -4px rgba(16,19,26,.25)}
+.lang-btn{font:700 11.5px/1 var(--font-body);letter-spacing:.06em;color:#2a303a;background:none;border:0;padding:8px 11px;border-radius:999px;cursor:pointer;transition:all .2s}
+.lang-btn:hover{background:rgba(16,19,26,.07);color:#000}
+.lang-btn.active{background:linear-gradient(135deg,#3E7CB1,#2E9E6E);color:#fff;box-shadow:0 2px 10px rgba(62,124,177,.4)}
+#mobile-menu .lang-switch{margin:20px 0 0;display:flex;justify-content:center;width:max-content}
+/* menu hamburger lebih awal (teks Jerman lebih panjang) */
+@media (max-width:1180px){
+  .nav-links,.nav-cta.desktop-only{display:none}
+  .nav-toggle{display:block;margin-left:0}
+  .nav-inner{justify-content:space-between}
+  #navbar .lang-switch{margin-left:auto;margin-right:10px}
+}
 
 /* hero: aurora + grid + gradient headline */
 .rk-aurora{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
