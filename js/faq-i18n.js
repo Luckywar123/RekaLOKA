@@ -34,7 +34,8 @@ en: [
  [["government","public institution","public sector","agency","ministry"],"We serve government & public institutions — focused on efficient digital services and public data security. Apply through the Partnership form."],
  [["i don't understand","confused","explain again","unclear"],"No worries! Try asking in different words, or type:\n• \"What services do you offer?\"\n• \"How does your process work?\"\n• \"How do I apply for a partnership?\"\n• \"Past project examples\""],
  [["bot","are you a bot","chatgpt","are you human","are you real"],"I'm an FAQ chatbot based on Rekaloka's official dataset (not ChatGPT). If something is outside the dataset, I'll point you to the Partnership form so a human on the team can help."],
- [["opening hours","working hours","business hours","when are you open","which days"],"The website form can be filled in 24/7. The team usually responds on business days. For urgent matters, mention it in the form description."]
+ [["opening hours","working hours","business hours","when are you open","which days"],"The website form can be filled in 24/7. The team usually responds on business days. For urgent matters, mention it in the form description."],
+ [["instagram","ig","social media","follow","instagram account","socials"],"Follow us on Instagram: @rekaloka.id 📸\nhttps://www.instagram.com/rekaloka.id/\n\nFor collaboration, please use the Partnership form or email rekaloka.id@gmail.com."]
 ],
 de: [
  [["hallo","hi","hey","guten morgen","guten tag","guten abend","servus","moin"],"Hallo! 👋 Ich bin der virtuelle Assistent von Rekaloka.\n\nIch helfe bei:\n• Leistungen & Produkten\n• Unserem Ablauf\n• Partnerschaft / Zusammenarbeit\n• Fallstudien\n• Preisen & Kontakt\n\nWomit soll ich anfangen?"],
@@ -70,6 +71,7 @@ de: [
  [["regierung","behorde","offentliche einrichtung","offentlicher sektor","ministerium"],"Wir betreuen Regierung & öffentliche Einrichtungen – mit Fokus auf effiziente digitale Dienste und die Sicherheit von Bürgerdaten. Anfrage über das Partnerschaftsformular."],
  [["verstehe nicht","nicht verstanden","unklar","verwirrt","erklaren sie nochmal"],"Kein Problem! Fragen Sie mit anderen Worten oder tippen Sie:\n• \"Welche Leistungen bieten Sie an?\"\n• \"Wie läuft Ihr Prozess ab?\"\n• \"Wie beantrage ich eine Partnerschaft?\"\n• \"Beispiele früherer Projekte\""],
  [["bot","sind sie ein bot","chatgpt","sind sie ein mensch","echt"],"Ich bin ein FAQ-Chatbot auf Basis des offiziellen Rekaloka-Datensatzes (nicht ChatGPT). Liegt etwas außerhalb des Datensatzes, verweise ich auf das Partnerschaftsformular, damit das Team Ihnen persönlich hilft."],
- [["offnungszeiten","arbeitszeiten","geschaftszeiten","wann geoffnet","welche tage"],"Das Website-Formular kann rund um die Uhr ausgefüllt werden. Das Team antwortet in der Regel an Werktagen. Bei dringenden Anliegen vermerken Sie das in der Beschreibung."]
+ [["offnungszeiten","arbeitszeiten","geschaftszeiten","wann geoffnet","welche tage"],"Das Website-Formular kann rund um die Uhr ausgefüllt werden. Das Team antwortet in der Regel an Werktagen. Bei dringenden Anliegen vermerken Sie das in der Beschreibung."],
+ [["instagram","ig","soziale medien","social media","folgen","instagram konto"],"Folgen Sie uns auf Instagram: @rekaloka.id 📸\nhttps://www.instagram.com/rekaloka.id/\n\nFür Kooperationen nutzen Sie bitte das Partnerschaftsformular oder schreiben Sie an rekaloka.id@gmail.com."]
 ]
 };

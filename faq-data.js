@@ -171,5 +171,10 @@ window.REKALOKA_FAQ = [
     q: ["jam operasional", "jam kerja", "kapan buka", "hari apa"],
     a: "Form website bisa diisi 24/7. Tim biasanya respons di hari kerja. Untuk urgent, sebutkan di keterangan form.",
     tags: ["jam", "operasional"]
+  },
+  {
+    q: ["instagram", "ig", "sosial media", "sosmed", "media sosial", "social media", "akun instagram", "follow"],
+    a: "Ikuti kami di Instagram: @rekaloka.id 📸\nhttps://www.instagram.com/rekaloka.id/\n\nUntuk kerjasama, tetap lewat form Kemitraan atau email rekaloka.id@gmail.com.",
+    tags: ["instagram", "sosial media", "kontak"]
   }
 ];

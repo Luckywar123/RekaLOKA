@@ -1,14 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" fill="#10131A"/>
-  <!-- vertical teal bar left -->
-  <rect x="3" y="3" width="7" height="26" fill="#2E9E6E"/>
-  <!-- top horizontal teal -->
-  <rect x="3" y="3" width="26" height="5" fill="#2E9E6E"/>
-  <!-- second horizontal dark -->
-  <rect x="10" y="11" width="19" height="4" fill="#1B3A4A"/>
-  <!-- third horizontal teal -->
-  <rect x="10" y="17" width="19" height="4" fill="#2E9E6E"/>
-  <!-- arc bottom-right -->
-  <path d="M12 29c8.5 0 15.5-5 17-12" fill="none" stroke="#1B3A4A" stroke-width="4" stroke-linecap="round"/>
-  <path d="M14 29c7 0 13-4.5 14.5-10" fill="none" stroke="#2E9E6E" stroke-width="2.5" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#10131A"/>
+  <g transform="translate(4.82 16.12) scale(0.23775)">
+    <rect x="411" y="193" width="1266" height="209" fill="#579077"/>
+    <rect x="411" y="534" width="1266" height="209" fill="#579077"/>
+    <rect x="411" y="743" width="214" height="1082" fill="#579077"/>
+    <path d="M411 534A1291 1291 0 0 1 1702 1825H1491A1080 1080 0 0 0 411 745Z" fill="#F2F5F7"/>
+  </g>
 </svg>

@@ -381,11 +381,8 @@
       '<div id="rk-chat-panel" role="dialog" aria-label="Chat FAQ Rekaloka">' +
       '<div class="rk-chat-header">' +
       '<div class="rk-avatar" title="Rekaloka">' +
-      '<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-      '<circle cx="20" cy="20" r="20" fill="#10131A"/>' +
-      '<circle cx="20" cy="20" r="18.5" fill="none" stroke="#2E9E6E" stroke-width="1.5"/>' +
-      '<path fill="#2E9E6E" d="M13 11h9.2c3.6 0 5.9 1.9 5.9 4.7 0 2.1-1.2 3.6-3.1 4.3l3.8 6.5h-3.6l-3.4-5.9h-4.3V26.5H13V11zm3.5 3v5.1h5.2c1.7 0 2.7-.9 2.7-2.55S23.4 14 21.7 14H16.5z"/>' +
-      '</svg></div>' +
+      '<img src="assets/logo/app-icon.svg" alt="" width="40" height="40" style="display:block;border-radius:50%;object-fit:cover">' +
+      '</div>' +
       '<div class="rk-title"><h3>Rekaloka Assistant</h3><p>FAQ • Online</p></div>' +
       '<button class="rk-close" id="rk-chat-close" aria-label="Tutup">' +
       '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
